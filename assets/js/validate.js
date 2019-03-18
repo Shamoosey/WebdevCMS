@@ -1,9 +1,10 @@
-let requireTextFields = ["fName", "lName", "email", "username"];
+let requireTextFields = ["fname", "lname", "email", "username", "password"];
 /*
  * Handles the submit event of the form
  */
 function validate(e){
 	hideErrors()
+	e.preventDefault();
 
 	if(formHasErrors()){
 		e.preventDefault();
@@ -30,11 +31,10 @@ function hasInput(fieldElement){
 //resets the form when the user presses the clear button
 function resetForm(e){
 	// Confirm that the user wants to reset the form.
-	if (confirm("Reset form?") )
+	if (confirm("Reset?") )
 	{
 		hideErrors();
-		
-		
+
 		return true;
 	}
 
@@ -46,7 +46,6 @@ function resetForm(e){
 //Checks the form for any errors and returns a value based on that
 function formHasErrors()
 {
-	
 	var errorFlag = false;
     //validating all of the text fields to confirm the have options
 	for(let i = 0; i < requireTextFields.length; i++){
@@ -55,7 +54,7 @@ function formHasErrors()
 		
 		if(!hasInput(textField)){
 			//display correct error message
-			document.getElementById(requireTextFields[i] + "_error").style.display = "block";
+			document.getElementById(requireTextFields[i] + "_error").style.display = "inline";
 			document.getElementById(requireTextFields[i]).style.border = "0.75px red solid";
 			if(!errorFlag && (i != 3)){
 				textField.focus();
@@ -72,7 +71,7 @@ function formHasErrors()
 	let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 	let emailFieldValue = document.getElementById("email").value;
 	if(!emailRegex.test(emailFieldValue)){
-		document.getElementById("emailformat_error").style.display = "block";
+		document.getElementById("emailformat_error").style.display = "inline";
 		document.getElementById("email").style.border = "0.75px red solid";
 		if(!errorFlag){
 			document.getElementById("email").focus();
@@ -82,7 +81,21 @@ function formHasErrors()
 		document.getElementById("emailformat_error").style.display = "none";
 		document.getElementById("email").style.border = "0.75px #333 solid";
     }
-    
+	
+	let passwordOne = document.getElementById("password").value;
+	let passwordTwo = document.getElementById("validatePassword").value;
+		if(trim(passwordOne) != trim(passwordTwo)){
+	
+			document.getElementById("passwordMatch_error").style.display = "inline";
+			document.getElementById("password").style.border = "0.75px red solid";
+	
+			if(!errorFlag){
+				document.getElementById("password");
+			}
+			errorFlag = true;
+		}
+
+
 }
 
 /*
@@ -106,7 +119,7 @@ function hideErrors()
  */
 function load()
 {
-	//hideErrors();
+	hideErrors();
 	document.getElementById("submit").addEventListener("click", validate);
 	document.getElementById("clear").addEventListener("click", resetForm);
 }
