@@ -29,31 +29,31 @@
     <?php require "head.php" ?>
     <body>
         <?php require "header.php" ?>
-        <script src="assets/js/validate.js"></script>
+        <script src="assets/js/signupValidate.js"></script>
         <form id="signup" action="signup.php" method="post">
             <fieldset>
                 <legend>Personal Information</legend>
-                First Name: <input id="fname" name="fname" type="text"/>
+                First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
                 <span class="addressError error" id="fname_error">* Required field</span><br/>
 
-                Last Name: <input id="lname" name="lname" type="text" />
+                Last Name: <input id="lname" name="lname" type="text" placeholder="Last Name"/>
                 <span class="addressError error" id="lname_error">* Required field</span><br/>
 
-                Email: <input id="email" name="email" type="text" />
+                Email: <input id="email" name="email" type="text" placeholder="Email Address" />
                 <span class="addressError error" id="email_error">* Required field</span>
                 <span class="addressError error" id="emailformat_error">* Invalid email address</span><br/>
             </fieldset>
             <fieldset>
             <legend>User Information</legend>
-                UserName: <input id="username" name="username" type="text" />
+                UserName: <input id="username" name="username" type="text" placeholder="Username" />
                 <span class="userError error" id="username_error">* Required field</span>
                 <span class="userError error" id="usernameTaken_error">* Username taken</span><br/>
 
-                Password: <input class="password" id="password" name="password" type="password" />
-                <span class="userError error" id="password_error">* Required field</span><br/>
+                Password: <input class="password" id="password" name="password" type="password" placeholder="Password" />
+                <span class="userError error" id="password_error">* Required field</span>
+                <span class="userError error" id="passwordLength_error">* Password must be more then 5 characters</span><br/>
 
-                Re-type Password: <input id="validatePassword" type="password" />
-                <span class="userError error" id="validatePassword_error">* Required field</span>
+                Re-type Password: <input id="validatePassword" type="password" placeholder="Confirm Password" />
                 <span class="userError error" id="passwordMatch_error">* Passwords do not match</span><br/>
 
             </fieldset>

@@ -71,12 +71,14 @@ function formHasErrors()
 	let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 	let emailFieldValue = document.getElementById("email").value;
 	if(!emailRegex.test(emailFieldValue)){
-		document.getElementById("emailformat_error").style.display = "inline";
-		document.getElementById("email").style.border = "0.75px red solid";
-		if(!errorFlag){
-			document.getElementById("email").focus();
+		if(document.getElementById("email_error").style.display == "none"){
+			document.getElementById("emailformat_error").style.display = "inline";
+			document.getElementById("email").style.border = "0.75px red solid";
+			if(!errorFlag){
+				document.getElementById("email").focus();
+			}
+			errorFlag = true;
 		}
-		errorFlag = true;
 	} else {
 		document.getElementById("emailformat_error").style.display = "none";
 		document.getElementById("email").style.border = "0.75px #333 solid";
@@ -84,16 +86,23 @@ function formHasErrors()
 	
 	let passwordOne = document.getElementById("password").value;
 	let passwordTwo = document.getElementById("validatePassword").value;
-		if(trim(passwordOne) != trim(passwordTwo)){
-	
-			document.getElementById("passwordMatch_error").style.display = "inline";
-			document.getElementById("password").style.border = "0.75px red solid";
-	
-			if(!errorFlag){
-				document.getElementById("password");
+	if(document.getElementById("password_error").style.display == "none"){
+		if(trim(passwordOne).length >= 5){
+			if(trim(passwordOne) != trim(passwordTwo)){
+				
+				document.getElementById("passwordMatch_error").style.display = "inline";
+				document.getElementById("password").style.border = "0.75px red solid";
+		
+				if(!errorFlag){
+					document.getElementById("password");
+				}
+				errorFlag = true;
 			}
-			errorFlag = true;
+		} else {
+			document.getElementById("passwordLength_error").style.display = "inline";
+			document.getElementById("password").style.border = "0.75px red solid";
 		}
+	}
 
 
 }
@@ -119,7 +128,7 @@ function hideErrors()
  */
 function load()
 {
-	hideErrors();
+	//hideErrors();
 	document.getElementById("submit").addEventListener("click", validate);
 	document.getElementById("clear").addEventListener("click", resetForm);
 }
