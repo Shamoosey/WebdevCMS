@@ -4,7 +4,6 @@ let requireTextFields = ["fname", "lname", "email", "username", "password"];
  */
 function validate(e){
 	hideErrors()
-	e.preventDefault();
 
 	if(formHasErrors()){
 		e.preventDefault();
@@ -93,18 +92,16 @@ function formHasErrors()
 				document.getElementById("passwordMatch_error").style.display = "inline";
 				document.getElementById("password").style.border = "0.75px red solid";
 		
-				if(!errorFlag){
-					document.getElementById("password");
-				}
 				errorFlag = true;
 			}
 		} else {
 			document.getElementById("passwordLength_error").style.display = "inline";
 			document.getElementById("password").style.border = "0.75px red solid";
+			errorFlag = true;
 		}
 	}
 
-
+	return errorFlag;
 }
 
 /*

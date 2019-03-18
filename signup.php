@@ -21,14 +21,13 @@
 
             } else {
                 header("Location: error.php");
+                $errorFlag = true;
             }
         } else {
             $errorFlag = true;
         }
     }
-    //if the errorFlag is true then redirect the user to the error page.
     if(!$errorFlag){
-        //Putting the items into the DB
         require("actions/connect.php");
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
         $put = $db -> prepare($insert);
@@ -40,10 +39,10 @@
         $put -> execute();
     
         $query = $db -> prepare("SELECT UserID FROM users WHERE UserName = '$userFields[0]'");
-        $queryBlog -> execute();
-        $userID = $queryBlog -> fetchAll();
-
-        $_SESSION['userID'] = $userID;
+        $query -> execute();
+        $userID = $query -> fetchAll();
+        $_SESSION["userID"] = $userID[0];
+        header("Location: index.php");
     }
 ?>
 <!DOCTYPE html>
@@ -52,7 +51,7 @@
     <body>
         <?php require "header.php" ?>
         <script src="assets/js/signupValidate.js"></script>
-        <form id="signup" action="index.php" method="post">
+        <form id="signup" action="signup.php" method="post">
             <fieldset>
                 <legend>Personal Information</legend>
                 First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
