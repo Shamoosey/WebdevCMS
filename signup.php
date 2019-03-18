@@ -1,17 +1,34 @@
 <?php
     $errorFlag = false;
+
+    //array of all the posted values
     $fields = ['username', 'fname', 'lname', 'password', 'email'];
     $userFields = array();
 
     foreach ($fields as $value) {
-        if(isset($_POST["$value"])){
-            array_push($userFields, filter_input(INPUT_POST,"$value",FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        //Checking if the post is set
+        if(isset($_POST[$value])){
+            //checking if the post has anything in it
+            if($_POST[$value] != ""){
+                //pushing the value to the array
+                array_push($userFields, filter_input(INPUT_POST, $value ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+                /*
+                *
+                * ADD MORE BACKEND VALIDATION HERE AT LATER TIME
+                *
+                */
+
+            } else {
+                header("Location: error.php");
+            }
         } else {
             $errorFlag = true;
         }
     }
-
-    if(false){
+    //if the errorFlag is true then redirect the user to the error page.
+    if(!$errorFlag){
+        //Putting the items into the DB
         require("actions/connect.php");
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
         $put = $db -> prepare($insert);
@@ -21,7 +38,12 @@
         $put -> bindValue(':password', $userFields[3]);
         $put -> bindValue(':email', $userFields[4]);
         $put -> execute();
-        $db -> lastInsertId();
+    
+        $query = $db -> prepare("SELECT UserID FROM users WHERE UserName = '$userFields[0]'");
+        $queryBlog -> execute();
+        $userID = $queryBlog -> fetchAll();
+
+        $_SESSION['userID'] = $userID;
     }
 ?>
 <!DOCTYPE html>
@@ -30,7 +52,7 @@
     <body>
         <?php require "header.php" ?>
         <script src="assets/js/signupValidate.js"></script>
-        <form id="signup" action="signup.php" method="post">
+        <form id="signup" action="index.php" method="post">
             <fieldset>
                 <legend>Personal Information</legend>
                 First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
