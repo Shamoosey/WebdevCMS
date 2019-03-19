@@ -72,7 +72,6 @@ function hideErrors()
  */
 function load()
 {
-	//hideErrors();
 	document.getElementById("submit").addEventListener("click", validate);
 }
 document.addEventListener("DOMContentLoaded", load);

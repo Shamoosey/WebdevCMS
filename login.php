@@ -23,7 +23,9 @@
                     if(password_verify($password, $user[0]["Password"])){
                         session_start();
                         $_SESSION["USERID"] = $user[0]["UserID"];
+                        $_SESSION["ADMINISTRATOR"] = $user[0]["Admin"];
                         header("location: index.php");
+                        $invalidlogin = false;
                     }
                 } else {
                     $invalidlogin = true;
