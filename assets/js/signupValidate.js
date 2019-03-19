@@ -29,17 +29,8 @@ function hasInput(fieldElement){
 
 //resets the form when the user presses the clear button
 function resetForm(e){
-	// Confirm that the user wants to reset the form.
-	if (confirm("Reset?") )
-	{
-		hideErrors();
-
-		return true;
-	}
-
-	e.preventDefault();
-	
-	return false;	
+	hideErrors();
+	return true;
 }
 
 //Checks the form for any errors and returns a value based on that
@@ -91,7 +82,8 @@ function formHasErrors()
 				
 				document.getElementById("passwordMatch_error").style.display = "inline";
 				document.getElementById("password").style.border = "0.75px red solid";
-		
+				document.getElementById("validatePassword").style.border = "0.75px red solid";
+				document.getElementById("password").style.border = "0.75px #333 solid";
 				errorFlag = true;
 			}
 		} else {
@@ -117,6 +109,7 @@ function hideErrors()
 	}
 	for(let i = 0; i < requireTextFields.length; i++){
 		document.getElementById(requireTextFields[i]).style.border = "0.75px #333 solid";
+		document.getElementById("validatePassword").style.border = "0.75px #333 solid";
 	}
 }
 
@@ -127,6 +120,6 @@ function load()
 {
 	//hideErrors();
 	document.getElementById("submit").addEventListener("click", validate);
-	document.getElementById("clear").addEventListener("click", resetForm);
+	document.getElementById("clear").addEventListener("click", hideErrors);
 }
 document.addEventListener("DOMContentLoaded", load);

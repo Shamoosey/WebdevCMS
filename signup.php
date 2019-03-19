@@ -41,7 +41,9 @@
         $query = $db -> prepare("SELECT UserID FROM users WHERE UserName = '$userFields[0]'");
         $query -> execute();
         $userID = $query -> fetchAll();
-        $_SESSION["userID"] = $userID[0];
+
+        session_start();
+        $_SESSION["USERID"] = $userID[0];
         header("Location: index.php");
     }
 ?>
@@ -50,38 +52,41 @@
     <?php require "head.php" ?>
     <body>
         <?php require "header.php" ?>
-        <script src="assets/js/signupValidate.js"></script>
-        <form id="signup" action="signup.php" method="post">
-            <fieldset>
-                <legend>Personal Information</legend>
-                First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
-                <span class="personalError error" id="fname_error">* Required field</span><br/>
+        <?php if(!isset($_SESSION["USERID"])): ?>
+            <script src="assets/js/signupValidate.js"></script>
+            <form id="signup" action="signup.php" method="post">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
+                    <span class="personalError error" id="fname_error">* Required field</span><br/>
 
-                Last Name: <input id="lname" name="lname" type="text" placeholder="Last Name"/>
-                <span class="personalError error" id="lname_error">* Required field</span><br/>
+                    Last Name: <input id="lname" name="lname" type="text" placeholder="Last Name"/>
+                    <span class="personalError error" id="lname_error">* Required field</span><br/>
 
-                Email: <input id="email" name="email" type="text" placeholder="Email Address" />
-                <span class="personalError error" id="email_error">* Required field</span>
-                <span class="personalError error" id="emailformat_error">* Invalid email address</span><br/>
-            </fieldset>
-            <fieldset>
-            <legend>User Information</legend>
-                UserName: <input id="username" name="username" type="text" placeholder="Username" />
-                <span class="userError error" id="username_error">* Required field</span>
-                <span class="userError error" id="usernameTaken_error">* Username taken</span><br/>
+                    Email: <input id="email" name="email" type="text" placeholder="Email Address" />
+                    <span class="personalError error" id="email_error">* Required field</span>
+                    <span class="personalError error" id="emailformat_error">* Invalid email address</span><br/>
+                </fieldset>
+                <fieldset>
+                <legend>User Information</legend>
+                    UserName: <input id="username" name="username" type="text" placeholder="Username" />
+                    <span class="userError error" id="username_error">* Required field</span>
+                    <span class="userError error" id="usernameTaken_error">* Username taken</span><br/>
 
-                Password: <input class="password" id="password" name="password" type="password" placeholder="Password" />
-                <span class="userError error" id="password_error">* Required field</span>
-                <span class="userError error" id="passwordLength_error">* Password must be more then 5 characters</span><br/>
+                    Password: <input class="password" id="password" name="password" type="password" placeholder="Password" />
+                    <span class="userError error" id="password_error">* Required field</span>
+                    <span class="userError error" id="passwordLength_error">* Password must be more then 5 characters</span><br/>
 
-                Re-type Password: <input id="validatePassword" type="password" placeholder="Confirm Password" />
-                <span class="userError error" id="passwordMatch_error">* Passwords do not match</span><br/>
-
-            </fieldset>
-            <button type="submit" id="submit">Sign Up</button>
-            <button id="clear">Reset</button>
-        </form>
-        <a href="login.php">Already have an account? Login!</a>
+                    Re-type Password: <input id="validatePassword" type="password" placeholder="Confirm Password" />
+                    <span class="userError error" id="passwordMatch_error">* Passwords do not match</span><br/>
+                </fieldset>
+                <button type="submit" id="submit">Sign Up</button>
+                <button type="reset" id="clear">Reset</button>
+            </form>
+            <a href="login.php">Already have an account? Login!</a>
+        <?php else: ?>
+            <p>Whoops! Looks like you are already signed in. <a href="actions/signout.php">Sign Out</a>
+        <?php endif?>
         <?php require "footer.php" ?>
     </body>
 </html>
