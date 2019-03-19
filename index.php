@@ -3,6 +3,7 @@
 <?php require "head.php"?>
 <body>
     <?php require "header.php" ?>
+    <h2>Welcome to the site!</h2>
     <div class="row">
         <div class="col">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 

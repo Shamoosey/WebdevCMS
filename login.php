@@ -1,33 +1,31 @@
 <?php
-    $errorFlag = false;
-    $fields = ['username', 'password'];
-    $login = array();
+    //check if user is logged in
     if(!isset($_SESSION["USERID"])){
-        foreach($fields as $value){
-            if(isset($_POST[$value])){
-                if($_POST[$value] != ""){
-                    array_push($login, filter_input(INPUT_POST, $value ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                } else {
-                    $errorFlag = true;
+
+        //check if posted values are set
+        if(isset($_POST["username"]) && isset($_POST["password"])){
+
+            //check if posted values contain anything
+            if(!empty($_POST["username"] && !empty($_POST["password"]))){
+
+                require("actions/connect.php");
+                $query = $db -> prepare("SELECT * FROM users WHERE UserName = :username");
+    
+                $username = strtoupper(filter_input(INPUT_POST, "username",FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $password = filter_input(INPUT_POST, "password" ,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+                $query -> bindValue(':username', $username);
+                $query -> execute();
+                $user = $query -> fetchAll();
+                $rowCount = $query -> rowCount();
+                
+                if(password_verify($password, $user[0]["Password"])){
+                    session_start();
+                    $_SESSION["USERID"] = $user[0]["UserID"];
+                    header("location: index.php");
                 }
-            } else {
-                $errorFlag = true;
             }
         }
-    } else {
-        $errorFlag = true;
-    }
-
-    if(!$errorFlag){
-        $query = $db -> prepare("SELECT `UserID`, `Password` FROM users WHERE UserName = '$login[0]'");
-        $query -> execute();
-        $userID = $query -> fetchAll();
-
-        if($userID[1] == trim($login[1])){
-            session_start();
-            $_SESSION["USERID"] = $userID[0];
-        }
-        header("Location: index.php");
     }
 ?>
 <!DOCTYPE html>
@@ -36,13 +34,15 @@
 <body>
     <?php require "header.php" ?>
     <?php if(!isset($_SESSION["USERID"])): ?>
+        <script src="assets/js/loginValidate.js"></script>
         <form action="login.php" method="post">
             <fieldset>
                 <legend>Login</legend>
-                UserName: <input id="username" name="username" type="text" placeholder="Username" /><br/>
+                UserName: <input id="username" name="username" type="text" placeholder="Username" />
+                <span class="userError error" id="username_error">* Required field</span><br/>
 
                 Password: <input class="password" id="password" name="password" type="password" placeholder="Password" />
-
+                <span class="userError error" id="password_error">* Required field</span><br/>
             </fieldset>
             <button type="submit" id="submit">Login</button>
             <a href="#">Forgot password</a>

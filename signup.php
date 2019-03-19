@@ -30,20 +30,25 @@
     if(!$errorFlag){
         require("actions/connect.php");
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
+
         $put = $db -> prepare($insert);
-        $put -> bindValue(':username', $userFields[0]);
+        $username = strtoupper($userFields[0]);
+        $put -> bindValue(':username', $username);
         $put -> bindValue(':fname', $userFields[1]);
         $put -> bindValue(':lname', $userFields[2]);
-        $put -> bindValue(':password', $userFields[3]);
+
+        $hashedPass = password_hash($userFields[3], PASSWORD_DEFAULT);
+        $put -> bindValue(':password', $hashedPass);
         $put -> bindValue(':email', $userFields[4]);
         $put -> execute();
     
-        $query = $db -> prepare("SELECT UserID FROM users WHERE UserName = '$userFields[0]'");
+        $query = $db -> prepare("SELECT * FROM users WHERE UserName = '$userFields[0]'");
         $query -> execute();
-        $userID = $query -> fetchAll();
+        $user = $query -> fetchAll();
 
         session_start();
-        $_SESSION["USERID"] = $userID[0];
+        $_SESSION["USERID"] = $user[0]["UserID"];
+
         header("Location: index.php");
     }
 ?>

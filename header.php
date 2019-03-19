@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <header>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
