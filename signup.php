@@ -55,14 +55,14 @@
             <fieldset>
                 <legend>Personal Information</legend>
                 First Name: <input id="fname" name="fname" type="text" placeholder="First Name"/>
-                <span class="addressError error" id="fname_error">* Required field</span><br/>
+                <span class="personalError error" id="fname_error">* Required field</span><br/>
 
                 Last Name: <input id="lname" name="lname" type="text" placeholder="Last Name"/>
-                <span class="addressError error" id="lname_error">* Required field</span><br/>
+                <span class="personalError error" id="lname_error">* Required field</span><br/>
 
                 Email: <input id="email" name="email" type="text" placeholder="Email Address" />
-                <span class="addressError error" id="email_error">* Required field</span>
-                <span class="addressError error" id="emailformat_error">* Invalid email address</span><br/>
+                <span class="personalError error" id="email_error">* Required field</span>
+                <span class="personalError error" id="emailformat_error">* Invalid email address</span><br/>
             </fieldset>
             <fieldset>
             <legend>User Information</legend>
@@ -81,6 +81,7 @@
             <button type="submit" id="submit">Sign Up</button>
             <button id="clear">Reset</button>
         </form>
+        <a href="login.php">Already have an account? Login!</a>
         <?php require "footer.php" ?>
     </body>
 </html>
