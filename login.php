@@ -1,4 +1,5 @@
 <?php
+    $invalidlogin = false;
     //check if user is logged in
     if(!isset($_SESSION["USERID"])){
 
@@ -18,11 +19,14 @@
                 $query -> execute();
                 $user = $query -> fetchAll();
                 $rowCount = $query -> rowCount();
-                
-                if(password_verify($password, $user[0]["Password"])){
-                    session_start();
-                    $_SESSION["USERID"] = $user[0]["UserID"];
-                    header("location: index.php");
+                if ($rowCount == 1){
+                    if(password_verify($password, $user[0]["Password"])){
+                        session_start();
+                        $_SESSION["USERID"] = $user[0]["UserID"];
+                        header("location: index.php");
+                    }
+                } else {
+                    $invalidlogin = true;
                 }
             }
         }
@@ -45,6 +49,9 @@
                 <span class="userError error" id="password_error">* Required field</span><br/>
             </fieldset>
             <button type="submit" id="submit">Login</button>
+            <?php if($invalidlogin): ?>
+                <span style="color: #F00;"> Invalid Login, please try again.</span><br/>
+            <?php endif ?>
             <a href="#">Forgot password</a>
         </form>
         <a href="signup.php">Don't have an account? Sign up!</a>
