@@ -9,6 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="actions/signout.php">Signout</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="  createpost.php">Post</a>
+                </li>
             <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">Login</a>
