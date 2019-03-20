@@ -6,5 +6,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/uikit.min.css">
     <script src="assets/js/uikit.min.js"></script>
     <script src="assets/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     
 </head>
