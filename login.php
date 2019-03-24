@@ -42,6 +42,7 @@
     <?php if(!isset($_SESSION["USERID"])): ?>
         <script src="assets/js/loginValidate.js"></script>
         <form action="login.php" method="post" class="uk-align-center">
+            <div class="uk-flex uk-flex-center">
             <fieldset class="uk-fieldset">
                 <legend class="uk-legend">Login</legend>
                 <div class="uk-margin-small">
@@ -59,6 +60,7 @@
                 <span style="color: #F00;"> Invalid Login, please try again.</span><br/>
             <?php endif ?>
             <a href="#">Forgot password</a>
+        </div>
         </form>
         <a href="signup.php">Don't have an account? Sign up!</a>
     <?php else :?>

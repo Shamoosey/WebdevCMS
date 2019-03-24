@@ -3,9 +3,9 @@
 <?php require "head.php"?>
 <body>
     <?php require "header.php" ?>
-    <div class="uk-background-fixed uk-background-center-center uk-height-medium" style="background-image: url(assets/images/background.jpg);">  
-        <h2 class="">Welcome to the site!</h2>
-    </div>
+    <!--<div class="uk-background-fixed uk-background-center-center uk-height-viewport" style="background-image: url(assets/images/background.jpg);">  
+</div>-->
+<h1 class="uk-heading-line uk-text-center"><span>Main Heading</span></h1>
         <div class="row">
         <div class="col">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
