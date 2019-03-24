@@ -3,7 +3,7 @@ let requireTextFields = ["username", "password"];
  * Handles the submit event of the form
  */
 function validate(e){
-	hideErrors()
+	hideErrors();
 
 	if(formHasErrors()){
 		e.preventDefault();
@@ -43,9 +43,10 @@ function formHasErrors()
             
 			errorFlag = true;
 		} else {
-
+			
+			//after user enters the correct info this hides the border and error message
 			document.getElementById(requireTextFields[i] + "_error").style.display = "none";
-			document.getElementById(requireTextFields[i]).style.border = "0.75px #333 solid";
+			document.getElementById(requireTextFields[i]).style.border = "1px solid #e5e5e5;";
 		}
 	}
 	return errorFlag;
@@ -62,8 +63,9 @@ function hideErrors()
 	for(let i = 0; i < errorFields.length; i++){
 		errorFields[i].style.display ="none";
 	}
+	//this will loop throught all the elements and clear the border
 	for(let i = 0; i < requireTextFields.length; i++){
-		document.getElementById(requireTextFields[i]).style.border = "0.75px #333 solid";
+		document.getElementById(requireTextFields[i]).style.border = "1px solid #e5e5e5;";
 	}
 }
 

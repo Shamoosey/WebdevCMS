@@ -1,4 +1,5 @@
 let requireTextFields = ["fname", "lname", "email", "username", "password"];
+let defaultBorder = "1px solid #e5e5e5";
 /*
  * Handles the submit event of the form
  */
@@ -53,7 +54,7 @@ function formHasErrors()
 			errorFlag = true;
 		} else {
 			document.getElementById(requireTextFields[i] + "_error").style.display = "none";
-			document.getElementById(requireTextFields[i]).style.border = "0.75px #333 solid";
+			document.getElementById(requireTextFields[i]).style.border = defaultBorder;
 		}
 	}
 	
@@ -71,7 +72,7 @@ function formHasErrors()
 		}
 	} else {
 		document.getElementById("emailformat_error").style.display = "none";
-		document.getElementById("email").style.border = "0.75px #333 solid";
+		document.getElementById("email").style.border = defaultBorder;
     }
 	
 	let passwordOne = document.getElementById("password").value;
@@ -83,7 +84,7 @@ function formHasErrors()
 				document.getElementById("passwordMatch_error").style.display = "inline";
 				document.getElementById("password").style.border = "0.75px red solid";
 				document.getElementById("validatePassword").style.border = "0.75px red solid";
-				document.getElementById("password").style.border = "0.75px #333 solid";
+				document.getElementById("password").style.border = defaultBorder;
 				errorFlag = true;
 			}
 		} else {
@@ -108,9 +109,9 @@ function hideErrors()
 		errorFields[i].style.display ="none";
 	}
 	for(let i = 0; i < requireTextFields.length; i++){
-		document.getElementById(requireTextFields[i]).style.border = "0.75px #333 solid";
-		document.getElementById("validatePassword").style.border = "0.75px #333 solid";
+		document.getElementById(requireTextFields[i]).style.border = defaultBorder;
 	}
+	document.getElementById("validatePassword").style.border = defaultBorder;
 }
 
 /*

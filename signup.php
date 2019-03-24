@@ -97,8 +97,8 @@
                     <span class="userError error" id="passwordMatch_error">* Passwords do not match</span><br/>
                 </div>
                 </fieldset>
-                <button type="submit" id="submit">Sign Up</button>
-                <button type="reset" id="clear">Reset</button>
+                <button class="uk-button-primary uk-button-small" type="submit" id="submit">Sign Up</button>
+                <button class="uk-button-danger uk-button-small" type="reset" id="clear">Reset</button>
             </form>
             <a href="login.php">Already have an account? Login!</a>
         <?php else: ?>

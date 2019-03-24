@@ -41,16 +41,20 @@
     <?php require "header.php" ?>
     <?php if(!isset($_SESSION["USERID"])): ?>
         <script src="assets/js/loginValidate.js"></script>
-        <form action="login.php" method="post">
-            <fieldset>
-                <legend>Login</legend>
-                UserName: <input id="username" name="username" type="text" placeholder="Username" />
-                <span class="userError error" id="username_error">* Required field</span><br/>
+        <form action="login.php" method="post" class="uk-align-center">
+            <fieldset class="uk-fieldset">
+                <legend class="uk-legend">Login</legend>
+                <div class="uk-margin-small">
+                    UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" />
+                    <span class="userError error" id="username_error">* Required field</span><br/>
+                </div>
 
-                Password: <input class="password" id="password" name="password" type="password" placeholder="Password" />
-                <span class="userError error" id="password_error">* Required field</span><br/>
+                <div class="uk-margin-small">
+                    Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" />
+                    <span class="userError error" id="password_error">* Required field</span><br/>
+                </div>
             </fieldset>
-            <button type="submit" id="submit">Login</button>
+            <button class="uk-button-primary uk-button-small" type="submit" id="submit">Login</button>
             <?php if($invalidlogin): ?>
                 <span style="color: #F00;"> Invalid Login, please try again.</span><br/>
             <?php endif ?>
