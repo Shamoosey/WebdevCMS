@@ -2,6 +2,7 @@
     session_start();
     $validuser = false;
     $loopcount = 0;
+    $userediterror = false;
     if(isset($_SESSION["USERID"])){
         if($_SESSION["ADMIN"] == 1){
             $validuser = true;
@@ -23,8 +24,12 @@
     } else {
         header("location: index.php");
     }
-
-
+    if(isset($_GET["error"])){
+        if($_GET["error"] == true){
+            $userediterror = true;
+        }
+    }
+    
     session_abort();
 ?>
 <!DOCTYPE html>
@@ -33,8 +38,13 @@
 <body>
     <?php require "header.php" ?>
     <?php if($validuser): ?>
-        <h2 class="uk-text-center uk-margin-bottom"><span>Admin Control Pannel</span></h2>
-        <table class="uk-table uk-margin-auto">
+        <h2 class="uk-text-center uk-margin-bottom">Admin Control Pannel</h2>
+        <?php if($userediterror) : ?>
+            <div class="uk-text-center uk-text-danger">
+                An error has occurred, please try again
+            </div>
+        <?php endif ?>
+        <table class="uk-table uk-margin-left">
             <thead>
                 <tr>
                     <th>UserID</th>
@@ -56,7 +66,10 @@
                         <td><?= $username ?></td>
                         <td><?= $user["Email"] ?></td>
                         <td><?= $fullname ?></td>
-                        <td><a class="" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
+                        <td>
+                            <a class="uk-margin-right" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a>
+                            <a class="" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Change Password</a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

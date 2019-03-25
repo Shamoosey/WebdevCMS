@@ -29,6 +29,7 @@
     <h2 class="uk-text-center uk-margin-bottom"><span>Edit User <?= $username ?></span></h2>
     <div class="uk-flex uk-flex-center">
         <form action="edituseradmin.php" method="post">
+                <input type="hidden" name="userid" value="<?=$user[0]["UserID"] ?>" />
             <div class="uk-margin-small">
                 Username: <input type="text" name="username" class="uk-input uk-form-width-medium" value="<?= $username ?>"/> <br/>
             </div>

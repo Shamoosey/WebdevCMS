@@ -1,25 +1,36 @@
 <?php
-    $validUser = false;
-    session_start();
-    if(isset($_SESSION["USERID"])){
-        if($_SESSION["ADMIN"] == 1){
-            $validUser = true;
-        }
-    }   
+    $errorFlag = false;
+    $values = ['userid', 'username', 'email', 'fname', 'lname'];
+    $userFields = array();
     
-    if($validUser){
+    foreach ($values as $value) {
+        if(isset($_POST[$value])){
+            if($_POST[$value] != ""){
 
-        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        require "actions/connect.php";
+                array_push($userFields, filter_input(INPUT_POST, $value ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+            } else {
+                $errorFlag = true;
+            }
+        } else {
+            $errorFlag = true;
+        }
+    }
     
-        $query = $db -> prepare("SELECT * FROM users WHERE UserID = '$userID'");
+       
+
+    if(!$errorFlag) {
+        
+        require "actions/connect.php";
+
+        print_r($userFields);
+        $query = $db -> prepare("UPDATE users SET Username = '$userFields[1]', Email = '$userFields[2]', 
+                                                  FirstName = '$userFields[3]', LastName = '$userFields[4]' 
+                                WHERE UserID = '$userFields[0]'");
         $query -> execute();
-        $user = $query -> fetchAll();
-        $username =ucfirst(strtolower($user[0]["Username"]));
+        header("location: admin.php");
 
     } else {
-        header("location: index.php");
+        header("location: admin.php?error=true");
     }
-    session_abort();
-
 ?>
