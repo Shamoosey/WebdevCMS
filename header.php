@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<?php session_start(); ?>
 <header>
     <nav class="uk-navbar-container uk-text-bold uk-navbar-transparent" uk-navbar>
         <div class="uk-navbar-left">
@@ -17,6 +17,9 @@
                         <a href="account.php">Account</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <?php if($_SESSION["ADMIN"] == 1) : ?>
+                                <li><a href="admin.php">Admin Controls</a></li>
+                                <?php endif ?>
                                 <li><a href="account.php">Account</a></li>
                                 <li><a href="actions/signout.php">Sign out</a></li>
                             </ul>

@@ -48,6 +48,7 @@
 
         session_start();
         $_SESSION["USERID"] = $user[0]["UserID"];
+        $_SESSION["ADMIN"] = $user[0]["Admin"];
 
         header("Location: index.php");
     }
