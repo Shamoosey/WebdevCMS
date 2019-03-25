@@ -10,5 +10,5 @@ TO DO
 * Implement Account page
 * Implement new posts and view posts
 * Validation for new posts (front and back)
-Implement search engine
-Finnish admin control pannel
+* Implement search engine
+* Finnish admin control pannel
