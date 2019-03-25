@@ -8,11 +8,14 @@
         }
     }
 
+    $CurrentUserID = $_SESSION["USERID"];
+
     if($validuser){
 
         require "actions/connect.php";
 
-        $query = $db -> prepare("SELECT * FROM users");
+        //Display all users that are not self
+        $query = $db -> prepare("SELECT * FROM users WHERE UserID != '$CurrentUserID'");
         $query -> execute();
         $user = $query -> fetchAll();
 

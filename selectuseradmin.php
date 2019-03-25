@@ -28,7 +28,7 @@
     <?php require "header.php" ?>
     <h2 class="uk-text-center uk-margin-bottom"><span>Edit User <?= $username ?></span></h2>
     <div class="uk-flex uk-flex-center">
-        <form action="selectuseradmin.php" method="post">
+        <form action="edituseradmin.php" method="post">
             <div class="uk-margin-small">
                 Username: <input type="text" name="username" class="uk-input uk-form-width-medium" value="<?= $username ?>"/> <br/>
             </div>
@@ -46,9 +46,9 @@
             </div>
 
             <div class="uk-margin-small">
-                <button class="uk-button uk-button-default" formaction="admin.php">Cancel</button>
+                <button class="uk-button uk-button-default" formaction="admin.php">Back</button>
                 <button class="uk-button uk-button-primary" type="submit">Edit</button>
-                <button class="uk-button uk-button-danger" formaction="deleteuser.php?user=<?= $user[0]["UserID"] ?>">Delete</button>
+                <button class="uk-button uk-button-danger" formaction="deleteuser.php?userid=<?= $user[0]["UserID"] ?>">Delete</button>
             </div>
         </form>
     </div>

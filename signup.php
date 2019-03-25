@@ -28,6 +28,7 @@
         }
     }
     if(!$errorFlag){
+        
         require("actions/connect.php");
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
 

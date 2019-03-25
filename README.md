@@ -12,3 +12,4 @@ TO DO
 * Validation for new posts (front and back)
 * Implement search engine
 * Finnish admin control pannel
+* Add inline & block comments
