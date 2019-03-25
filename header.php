@@ -14,10 +14,10 @@
                     <li><a href="signup.php">Sign up</a></li>
                 <?php else: ?>
                     <li>
-                        <a href="#">Account</a>
+                        <a href="account.php">Account</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
-                                <li><a href="#">Account</a></li>
+                                <li><a href="account.php">Account</a></li>
                                 <li><a href="actions/signout.php">Sign out</a></li>
                             </ul>
                         </div>

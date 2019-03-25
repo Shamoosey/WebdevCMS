@@ -1,3 +1,7 @@
+<?php
+    
+
+?>
 <!DOCTYPE html>
 <html>
 <?php require "head.php"?>
@@ -8,18 +12,22 @@
         <form action="newpost.php" method="post" class="uk-align-center">
             <div class="uk-flex uk-flex-center">
                 <fieldset class="uk-fieldset">
+                    <div class="uk-margin-small">
+                        Title: <input class="uk-input" id="title" name="title" type="text" placeholder="Title" />
+                    </div>
 
-                    <div uk-form-custom="target: true">
+                    <div class="uk-margin-small">
+                        Text: <textarea class="uk-textarea" id="content" name="content" type="textarea" placeholder="Content"></textarea>
+                    </div>
+                    <div class="uk-margin-small" uk-form-custom="target: true">
                         <input type="file">
                         Image: <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled>
                     </div>
             
-                    <div class="uk-margin-small">
-                        Text: <textarea class="uk-textarea" id="content" name="content" type="textarea" placeholder="Content"></textarea>
-                    </div>
-                </fieldset>
-            </div>
-            <div class="uk-flex uk-flex-center"> 
+                </div>
+            </fieldset>
+
+            <div class="uk-flex uk-flex-center uk-margin-top"> 
                 <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Login</button>
             </div>
         </form>
