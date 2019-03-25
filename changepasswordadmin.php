@@ -1,8 +1,9 @@
 <?php
     $validUser = false;
-    $errorFlag = false;
-    $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $error = false;
+
     session_start();
+
     if(isset($_SESSION["USERID"])){
         if($_SESSION["ADMIN"] == 1){
             $validUser = true;
@@ -12,14 +13,15 @@
     if($validUser){
 
         require "actions/connect.php";
-    
+        
+        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $query = $db -> prepare("SELECT * FROM users WHERE UserID = '$userID'");
         $query -> execute();
         $user = $query -> fetchAll();
         $username =ucfirst(strtolower($user[0]["Username"]));
     } else {
         //if the user is not valid send them back to main
-        header("location: index.php");
+        header("location: admin.php");
     }    
     session_abort();
 ?>
@@ -31,7 +33,11 @@
 
     <script src="assets\js\changepasswordValidate.js"></script>
     <h2 class="uk-text-center uk-margin-bottom">Change Password for <?= $username ?></h2>
-
+    <?php if($error) : ?>
+            <div class="uk-text-center uk-text-danger">
+                An error has occurred, please try again
+            </div>
+        <?php endif ?>
     <div class="uk-flex uk-flex-center">
         <form action="actions/changepassword.php" method="post">
                 <input type="hidden" name="userid" value="<?=$user[0]["UserID"] ?>" />

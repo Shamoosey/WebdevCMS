@@ -2,7 +2,7 @@
     session_start();
     $validuser = false;
     $loopcount = 0;
-    $userediterror = false;
+    $error = false;
     if(isset($_SESSION["USERID"])){
         if($_SESSION["ADMIN"] == 1){
             $validuser = true;
@@ -26,7 +26,7 @@
     }
     if(isset($_GET["error"])){
         if($_GET["error"] == true){
-            $userediterror = true;
+            $error = true;
         }
     }
     
@@ -41,7 +41,7 @@
         <h2 class="uk-text-center">Admin Control Pannel</h2>
 
         <h3 class="uk-text-center uk-margin-bottom"><a href="signup.php?admin=1">Create User</a></h3>
-        <?php if($userediterror) : ?>
+        <?php if($error) : ?>
             <div class="uk-text-center uk-text-danger">
                 An error has occurred, please try again
             </div>
