@@ -7,7 +7,8 @@ Users are able to signup, and sign into accounts
 
 
 TO DO
-Implement Account page
-Implement new posts and view posts
-Validation for new posts (front and back)
+* Implement Account page
+* Implement new posts and view posts
+* Validation for new posts (front and back)
 Implement search engine
+Finnish admin control pannel
