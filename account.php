@@ -13,7 +13,7 @@
 
         
         if(isset($user[0])){
-            print_r($user[0]);
+            //print_r($user[0]);
             $validUser = true;
         }
     } else {

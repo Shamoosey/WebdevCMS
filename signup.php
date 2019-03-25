@@ -1,9 +1,16 @@
 <?php
     $errorFlag = false;
-
+    $adminControl = false;
     //array of all the posted values
     $fields = ['username', 'fname', 'lname', 'password', 'email'];
     $userFields = array();
+    session_start();
+    if(isset($_SESSION["ADMIN"])){
+        if($_SESSION["ADMIN"] == 1){
+            $adminControl = true;
+        }
+    }
+
 
     foreach ($fields as $value) {
         //Checking if the post is set
@@ -47,21 +54,31 @@
         $query -> execute();
         $user = $query -> fetchAll();
 
-        session_start();
         $_SESSION["USERID"] = $user[0]["UserID"];
         $_SESSION["ADMIN"] = $user[0]["Admin"];
 
-        header("Location: index.php");
+        if($adminControl){
+            header("location: admin.php");
+        } else {
+            header("location: index.php");
+        }
     }
+    session_abort();
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <?php require "head.php" ?>
     <body>
         <?php require "header.php" ?>
-        <?php if(!isset($_SESSION["USERID"])): ?>
+        <?php if(!isset($_SESSION["USERID"]) || $adminControl): ?>
             <script src="assets/js/signupValidate.js"></script>
-            <h1 class="uk-text-center"><span>Sign Up</span></h1>
+
+            <?php if($adminControl): ?> 
+                <h1 class="uk-text-center">Create User</h1>
+            <?php else : ?>
+                <h1 class="uk-text-center">Sign Up</h1>
+            <?php endif ?>
+
             <form class="uk-align-center" id="signup" action="signup.php" method="post">
                 <div class="uk-flex uk-flex-middle uk-flex-column"> 
                     <fieldset class="uk-fieldset">
@@ -98,14 +115,20 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="uk-flex uk-flex-center"> 
-                    <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Sign Up</button>
+                <div class="uk-flex uk-flex-center">
+                    <?php if($adminControl): ?>
+                    <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Create User</button>
+                    <?php else : ?>
+                        <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Sign Up</button>
+                    <?php endif ?>
                     <button class="uk-button-danger uk-button-small" type="reset" id="clear">Reset</button>
                 </div>
-                </form>
-            <div class="uk-flex uk-flex-center"> 
-                <a href="login.php">Already have an account? Login!</a>
-            </div>
+            </form>
+            <?php if(!$adminControl): ?>
+                <div class="uk-flex uk-flex-center"> 
+                    <a href="login.php">Already have an account? Login!</a>
+                </div>
+            <?php endif ?>
         <?php else: ?>
             <p>Whoops! Looks like you are already signed in. <a href="actions/signout.php">Sign Out</a>
         <?php endif?>

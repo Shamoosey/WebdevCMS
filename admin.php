@@ -38,13 +38,15 @@
 <body>
     <?php require "header.php" ?>
     <?php if($validuser): ?>
-        <h2 class="uk-text-center uk-margin-bottom">Admin Control Pannel</h2>
+        <h2 class="uk-text-center">Admin Control Pannel</h2>
+
+        <h3 class="uk-text-center uk-margin-bottom"><a href="signup.php?admin=1">Create User</a></h3>
         <?php if($userediterror) : ?>
             <div class="uk-text-center uk-text-danger">
                 An error has occurred, please try again
             </div>
         <?php endif ?>
-        <table class="uk-table uk-margin-left">
+        <table class="uk-table uk-margin-left uk-table-divider">
             <thead>
                 <tr>
                     <th>UserID</th>

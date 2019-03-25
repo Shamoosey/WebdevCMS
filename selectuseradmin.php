@@ -26,7 +26,7 @@
 <?php require "head.php" ?>
 <body>
     <?php require "header.php" ?>
-    <h2 class="uk-text-center uk-margin-bottom"><span>Edit User <?= $username ?></span></h2>
+    <h2 class="uk-text-center uk-margin-bottom">Edit User <?= $username ?></h2>
     <div class="uk-flex uk-flex-center">
         <form action="edituseradmin.php" method="post">
                 <input type="hidden" name="userid" value="<?=$user[0]["UserID"] ?>" />
