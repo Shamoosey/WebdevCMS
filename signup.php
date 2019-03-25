@@ -59,48 +59,51 @@
         <?php require "header.php" ?>
         <?php if(!isset($_SESSION["USERID"])): ?>
             <script src="assets/js/signupValidate.js"></script>
+            <h1 class="uk-text-center"><span>Sign Up</span></h1>
             <form class="uk-align-center" id="signup" action="signup.php" method="post">
-                <fieldset class="uk-fieldset">
-                    <legend class="uk-legend">Personal Information</legend>
-                <div class="uk-margin-small">
-                    First Name: <input class="uk-input uk-form-width-medium" id="fname" name="fname" type="text" placeholder="First Name"/>
-                    <span class="personalError error" id="fname_error">* Required field</span><br/>
-                </div>
-                <div class="uk-margin-small">
-                    Last Name: <input class="uk-input uk-form-width-medium" id="lname" name="lname" type="text" placeholder="Last Name"/>
-                    <span class="personalError error" id="lname_error">* Required field</span><br/>
-                </div>
-                <div class="uk-margin-small">
-                    Email: <input class="uk-input uk-form-width-medium" id="email" name="email" type="text" placeholder="Email Address" />
-                    <span class="personalError error" id="email_error">* Required field</span>
-                    <span class="personalError error" id="emailformat_error">* Invalid email address</span><br/>
-                </div>
-                </fieldset>
-
-                <div class="uk-margin-top">
+                <div class="uk-flex uk-flex-middle uk-flex-column"> 
                     <fieldset class="uk-fieldset">
+                        <legend class="uk-legend">Personal Information</legend>
+                        <div class="uk-margin-small">
+                            First Name: <input class="uk-input uk-form-width-medium" id="fname" name="fname" type="text" placeholder="First Name"/><br/>
+                            <span class="personalError error" id="fname_error">* Required field</span>
+                        </div>
+                        <div class="uk-margin-small">
+                            Last Name: <input class="uk-input uk-form-width-medium" id="lname" name="lname" type="text" placeholder="Last Name"/><br/>
+                            <span class="personalError error" id="lname_error">* Required field</span>
+                        </div>
+                        <div class="uk-margin-small">
+                            Email: <input class="uk-input uk-form-width-medium" id="email" name="email" type="text" placeholder="Email Address" /><br/>
+                            <span class="personalError error" id="email_error">* Required field</span>
+                            <span class="personalError error" id="emailformat_error">* Invalid email address</span>
+                        </div>
+                    </fieldset>
+                    <fieldset class="uk-fieldset">
+                        <legend class="uk-legend">User Information</legend>
+                        <div class="uk-margin-small">
+                            UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" /><br/>
+                            <span class="userError error" id="username_error">* Required field</span>
+                            <span class="userError error" id="usernameTaken_error">* Username taken</span>
+                        </div>
+                        <div class="uk-margin-small">
+                            Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" /><br/>
+                            <span class="userError error" id="password_error">* Required field</span>
+                            <span class="userError error" id="passwordLength_error">* Password must be more then 5 characters</span>
+                        </div>
+                        <div class="uk-margin-small">
+                            Confirm: <input class="uk-input uk-form-width-medium" id="validatePassword" name="password" type="password" placeholder="Confirm Password"/><br/>
+                            <span class="userError error" id="passwordMatch_error">* Passwords do not match</span>
+                        </div>
+                    </fieldset>
                 </div>
-
-                <legend class="uk-legend">User Information</legend>
-                <div class="uk-margin-small">
-                    UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" />
-                    <span class="userError error" id="username_error">* Required field</span>
-                    <span class="userError error" id="usernameTaken_error">* Username taken</span><br/>
+                <div class="uk-flex uk-flex-center"> 
+                    <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Sign Up</button>
+                    <button class="uk-button-danger uk-button-small" type="reset" id="clear">Reset</button>
                 </div>
-                <div class="uk-margin-small">
-                    Password: <input class="uk-input uk-form-width-medium" class="password" id="password" name="password" type="password" placeholder="Password" />
-                    <span class="userError error" id="password_error">* Required field</span>
-                    <span class="userError error" id="passwordLength_error">* Password must be more then 5 characters</span><br/>
-                </div>
-                <div class="uk-margin-small">
-                    Re-type Password: <input class="uk-input uk-form-width-medium" id="validatePassword" type="password" placeholder="Confirm Password" />
-                    <span class="userError error" id="passwordMatch_error">* Passwords do not match</span><br/>
-                </div>
-                </fieldset>
-                <button class="uk-button-primary uk-button-small" type="submit" id="submit">Sign Up</button>
-                <button class="uk-button-danger uk-button-small" type="reset" id="clear">Reset</button>
-            </form>
-            <a href="login.php">Already have an account? Login!</a>
+                </form>
+            <div class="uk-flex uk-flex-center"> 
+                <a href="login.php">Already have an account? Login!</a>
+            </div>
         <?php else: ?>
             <p>Whoops! Looks like you are already signed in. <a href="actions/signout.php">Sign Out</a>
         <?php endif?>

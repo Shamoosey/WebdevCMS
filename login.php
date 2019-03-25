@@ -41,10 +41,10 @@
     <?php require "header.php" ?>
     <?php if(!isset($_SESSION["USERID"])): ?>
         <script src="assets/js/loginValidate.js"></script>
+        <h1 class="uk-text-center"><span>Login</span></h1>
         <form action="login.php" method="post" class="uk-align-center">
             <div class="uk-flex uk-flex-center">
                 <fieldset class="uk-fieldset">
-                    <legend class="uk-legend">Login</legend>
                     <div class="uk-margin-small">
                         UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" /><br/>
                         <span class="userError error" id="username_error">* Required field</span>
