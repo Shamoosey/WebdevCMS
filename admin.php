@@ -31,25 +31,33 @@
     <?php require "header.php" ?>
     <?php if($validuser): ?>
         <h2 class="uk-text-center uk-margin-bottom"><span>Admin Control Pannel</span></h2>
-        <div class="uk-flex uk-flex-between uk-flex-column">
-            <?php 
-                foreach($user as $user): 
-                $fullname = ($user["FirstName"] . " " . $user["LastName"]);
-                $loopcount += 1; 
-            ?>
-                <form action="admin.php" method="post">
-                    <div class ="uk-flex uk-flex-around">
-                        <span class="uk-margin-right"><?= $user["UserID"] ?></span>
-                        <span class="uk-margin-right"><?= $user["Username"] ?></span>
-                        <span class="uk-margin-right"><?= $user["Email"] ?></span>
-                        <span class="uk-margin-right"><?= $fullname ?></span>
-                        <input type="hidden" name="UserID" value="<?= $user["UserID"] ?>"/>
-
-                        <button class="uk-button uk-button-primary uk-margin-bottom" type="submit">Select User</button>
-                    </div>
-                </form>
-            <?php endforeach ?>
-        </div>
+        <table class="uk-table uk-margin-auto">
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    foreach($user as $user): 
+                        $fullname = ($user["FirstName"] . " " . $user["LastName"]);
+                        $loopcount += 1; 
+                        $username =ucfirst(strtolower($user["Username"]));
+                        ?>
+                    <tr>
+                        <td><?= $user["UserID"] ?></td>
+                        <td><?= $username ?></td>
+                        <td><?= $user["Email"] ?></td>
+                        <td><?= $fullname ?></td>
+                        <td><a class="" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
     <?php endif ?>
 </body>
 </html>

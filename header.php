@@ -14,7 +14,7 @@
                     <li><a href="signup.php">Sign up</a></li>
                 <?php else: ?>
                     <li>
-                        <a href="account.php">Account</a>
+                        <a href="account.php">User Account</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <?php if($_SESSION["ADMIN"] == 1) : ?>
