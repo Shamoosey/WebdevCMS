@@ -43,26 +43,32 @@
         <script src="assets/js/loginValidate.js"></script>
         <form action="login.php" method="post" class="uk-align-center">
             <div class="uk-flex uk-flex-center">
-            <fieldset class="uk-fieldset">
-                <legend class="uk-legend">Login</legend>
-                <div class="uk-margin-small">
-                    UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" />
-                    <span class="userError error" id="username_error">* Required field</span><br/>
-                </div>
-
-                <div class="uk-margin-small">
-                    Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" />
-                    <span class="userError error" id="password_error">* Required field</span><br/>
-                </div>
-            </fieldset>
-            <button class="uk-button-primary uk-button-small" type="submit" id="submit">Login</button>
-            <?php if($invalidlogin): ?>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">Login</legend>
+                    <div class="uk-margin-small">
+                        UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" /><br/>
+                        <span class="userError error" id="username_error">* Required field</span>
+                    </div>
+            
+                    <div class="uk-margin-small">
+                        Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" /><br/>
+                        <span class="userError error" id="password_error">* Required field</span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="uk-flex uk-flex-center"> 
+                <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Login</button>
+                <a href="#">Forgot password</a>
+            </div>
+            <div class="uk-flex uk-flex-center"> 
+                <?php if($invalidlogin): ?>
                 <span style="color: #F00;"> Invalid Login, please try again.</span><br/>
-            <?php endif ?>
-            <a href="#">Forgot password</a>
-        </div>
+                <?php endif ?>
+            </div>
         </form>
-        <a href="signup.php">Don't have an account? Sign up!</a>
+        <div class="uk-flex uk-flex-center">
+            <a href="signup.php">Don't have an account? Sign up!</a>
+        </div>
     <?php else :?>
         <p>Whoops! Looks like you are already signed in. <a href="actions/signout.php">Sign Out</a>
     <?php endif ?>
