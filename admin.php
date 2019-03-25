@@ -66,10 +66,7 @@
                         <td><?= $username ?></td>
                         <td><?= $user["Email"] ?></td>
                         <td><?= $fullname ?></td>
-                        <td>
-                            <a class="uk-margin-right" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a>
-                            <a class="" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Change Password</a>
-                        </td>
+                        <td><a class="uk-margin-right" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

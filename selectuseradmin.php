@@ -47,10 +47,13 @@
             </div>
 
             <div class="uk-margin-small">
-                <button class="uk-button uk-button-default" formaction="admin.php">Back</button>
+                <button class="uk-button uk-button-primary" formaction="changepasswordadmin.php?userid=<?= $user[0]["UserID"] ?>">Change Password</button>
                 <button class="uk-button uk-button-primary" type="submit">Edit</button>
                 <button class="uk-button uk-button-danger" formaction="deleteuser.php?userid=<?= $user[0]["UserID"] ?>">Delete</button>
             </div>
+            <div class="uk-margin-small">
+                <button class="uk-button uk-button-default" formaction="admin.php">Back</button>
+            </div>  
         </form>
     </div>
     <?php require "footer.php" ?>
