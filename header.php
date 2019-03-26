@@ -1,9 +1,9 @@
 <?php session_start(); ?>
 <header>
-    <nav class="uk-navbar-container uk-text-bold uk-navbar-transparent" uk-navbar>
+    <nav class="uk-dark uk-navbar-container uk-text-bold uk-navbar-transparent" uk-navbar>
         <div class="uk-navbar-left">
-            <ul class="uk-light uk-navbar-nav">
-                <li><a href="index.php">Home</a></li>
+            <ul class="uk-navbar-nav">
+                <li><a class="" href="index.php">Home</a></li>
                 <li><a href="newpost.php">New Post</a></li>
             </ul>
         </div>
