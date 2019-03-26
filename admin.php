@@ -46,7 +46,7 @@
                 An error has occurred, please try again
             </div>
         <?php endif ?>
-        <table class="uk-table uk-margin-left uk-table-divider">
+        <table class="uk-table uk-margin-auto uk-table-divider">
             <thead>
                 <tr>
                     <th>UserID</th>
@@ -68,7 +68,7 @@
                         <td><?= $username ?></td>
                         <td><?= $user["Email"] ?></td>
                         <td><?= $fullname ?></td>
-                        <td><a class="uk-margin-right" href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
+                        <td><a href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
