@@ -40,7 +40,6 @@ function formHasErrors()
 	var errorFlag = false;
     //validating all of the text fields to confirm the have options
 	for(let i = 0; i < requireTextFields.length; i++){
-        console.log(i);
 		var textField = document.getElementById(requireTextFields[i])
 		
 		if(!hasInput(textField)){

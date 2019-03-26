@@ -86,7 +86,9 @@
     <body>
         <?php require "header.php" ?>
         <?php if(!isset($_SESSION["USERID"]) || $adminControl): ?>
+
             <script src="assets/js/signupValidate.js"></script>
+            <script src="assets/js/usernameValidation.js"></script>
 
             <?php if($adminControl): ?> 
                 <h1 class="uk-text-center">Create User</h1>
@@ -117,6 +119,7 @@
                         <div class="uk-margin-small">
                             UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" /><br/>
                             <span class="userError error" id="username_error">* Required field</span>
+                            <span class="userError error" id="usernameTaken_error">* Username Taken</span>
                         </div>
                         <div class="uk-margin-small">
                             Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" /><br/>
