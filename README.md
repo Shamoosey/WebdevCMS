@@ -11,5 +11,5 @@ TO DO
 * Implement new posts and view posts
 * Validation for new posts (front and back)
 * Implement search engine
-* Finnish admin control pannel
 * Add inline & block comments
+* Add AJAX Request for usernames

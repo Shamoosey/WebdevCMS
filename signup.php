@@ -1,10 +1,14 @@
 <?php
     $errorFlag = false;
     $adminControl = false;
+    $usernameTaken = false;
+    $noSubmissionError = false;
+
     //array of all the posted values
     $fields = ['username', 'fname', 'lname', 'password', 'email'];
     $userFields = array();
     session_start();
+
     if(isset($_SESSION["ADMIN"])){
         if($_SESSION["ADMIN"] == 1){
             $adminControl = true;
@@ -19,29 +23,39 @@
             if($_POST[$value] != ""){
                 //pushing the value to the array
                 array_push($userFields, filter_input(INPUT_POST, $value ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
-                /*
-                *
-                * ADD MORE BACKEND VALIDATION HERE AT LATER TIME
-                *
-                */
-
             } else {
-                header("Location: error.php");
                 $errorFlag = true;
+                $noSubmissionError = true;
             }
         } else {
             $errorFlag = true;
         }
     }
+    
+    //checking if the username is taken
+    if(isset($_POST["username"])){
+        require("actions/connect.php");
+        $query = $db -> prepare("SELECT * FROM users");
+        $query -> execute();
+        $user = $query -> fetchAll();
+        
+
+        foreach ($user as $user) {
+            if(strtoupper(trim($_POST["username"])) == $user["Username"]){
+                $errorFlag = true;
+                $usernameTaken = true;
+            }
+        }
+    }
+
     if(!$errorFlag){
         
-        require("actions/connect.php");
+        //insert the values into the db as a new user
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
 
         $put = $db -> prepare($insert);
         $username = strtoupper($userFields[0]);
-        $put -> bindValue(':username', $username);
+        $put -> bindValue(':username', trim($username));
         $put -> bindValue(':fname', $userFields[1]);
         $put -> bindValue(':lname', $userFields[2]);
 
@@ -50,9 +64,9 @@
         $put -> bindValue(':email', $userFields[4]);
         $put -> execute();
     
-        $query = $db -> prepare("SELECT * FROM users WHERE UserName = '$userFields[0]'");
-        $query -> execute();
-        $user = $query -> fetchAll();
+        $userQuery = $db -> prepare("SELECT UserID, Admin FROM users WHERE UserName = '$userFields[0]'");
+        $userQuery -> execute();
+        $user = $userQuery -> fetchAll();
 
         $_SESSION["USERID"] = $user[0]["UserID"];
         $_SESSION["ADMIN"] = $user[0]["Admin"];
@@ -62,8 +76,9 @@
         } else {
             header("location: index.php");
         }
+    } else {
+        session_abort();
     }
-    session_abort();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +117,6 @@
                         <div class="uk-margin-small">
                             UserName: <input class="uk-input uk-form-width-medium" id="username" name="username" type="text" placeholder="Username" /><br/>
                             <span class="userError error" id="username_error">* Required field</span>
-                            <span class="userError error" id="usernameTaken_error">* Username taken</span>
                         </div>
                         <div class="uk-margin-small">
                             Password: <input class="uk-input uk-form-width-medium" id="password" name="password" type="password" placeholder="Password" /><br/>
@@ -115,6 +129,15 @@
                         </div>
                     </fieldset>
                 </div>
+                <?php if($noSubmissionError) :?>
+                    <div class="uk-text-center uk-text-danger">
+                        An error has occurred, please try again.
+                    </div>
+                <?php elseif($usernameTaken) : ?>
+                    <div class="uk-text-center uk-text-danger">
+                        Username taken, please try again.
+                    </div>
+                <?php endif ?>
                 <div class="uk-flex uk-flex-center">
                     <?php if($adminControl): ?>
                     <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Create User</button>
