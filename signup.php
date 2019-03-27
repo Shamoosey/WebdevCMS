@@ -143,6 +143,7 @@
                 <?php endif ?>
                 <div class="uk-flex uk-flex-center">
                     <?php if($adminControl): ?>
+                    <button class="uk-button-default uk-button-small uk-margin-right" type="button" onclick="location.href = 'admin.php'">Back</button>
                     <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Create User</button>
                     <?php else : ?>
                         <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Sign Up</button>
