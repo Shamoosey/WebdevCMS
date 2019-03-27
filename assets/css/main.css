@@ -1,4 +1,4 @@
-.error{
+.error, .userError{
     display: none;
     color: red;
 }

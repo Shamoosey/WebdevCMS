@@ -11,9 +11,11 @@ window.addEventListener("load", () => {
             .then(response => {
                 if(response != null){
                     usernameError.style.display = "inline";
-                    usernameError.style.color = "red"
+                    usernameError.style.color = "red";
+                    document.getElementById("username").style.border = "0.75px red solid";
                 } else {
                     usernameError.style.display = "none";
+                    document.getElementById("username").style.border = "1px solid #e5e5e5";
                 }
             })
     })

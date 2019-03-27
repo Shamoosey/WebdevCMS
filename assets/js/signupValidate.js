@@ -93,6 +93,26 @@ function formHasErrors()
 		}
 	}
 
+	let usernameTakenError = document.getElementById("usernameTaken_error");
+	let usernameError = document.getElementById("username");
+	if(document.getElementById("username_error").style.display == "none"){
+		fetch(`actions/usernamejson.php?username=${username.value}`)
+				.then(result => {
+					return result.json();                
+				})
+				.then(response => {
+					if(response != null){
+						errorFlag = true;
+						usernameTakenError.style.display = "inline";
+						usernameTakenError.style.color = "red"
+						usernameError.style.border = "0.75px red solid";
+					} else {
+						usernameTakenError.style.display = "none";
+						usernameError.style.border = defaultBorder;
+					}
+				})
+	}
+
 	return errorFlag;
 }
 
@@ -102,7 +122,8 @@ function formHasErrors()
 function hideErrors()
 {
 	//get a array of the errors
-	let errorFields = document.getElementsByClassName("error")
+	let errorFields = document.getElementsByClassName("error");
+	let usernameError = document.getElementById("usernameTaken_error").style.display = "none"
 
 	for(let i = 0; i < errorFields.length; i++){
 		errorFields[i].style.display ="none";
