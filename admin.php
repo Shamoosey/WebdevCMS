@@ -81,6 +81,7 @@
                     <th><a href="admin.php?orderby=username">Username</a></th>
                     <th>Email</th>
                     <th>Full Name</th>
+                    <th>Posts</th>
                     <th>Select</th>
                 </tr>
             </thead>
@@ -96,6 +97,7 @@
                         <td><?= $username ?></td>
                         <td><?= $user["Email"] ?></td>
                         <td><?= $fullname ?></td>
+                        <td><a href="#">View Posts</a></td>
                         <td><a href="selectuseradmin.php?userid=<?= $user["UserID"]?>">Select User</a></td>
                     </tr>
                 <?php endforeach ?>
