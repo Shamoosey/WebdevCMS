@@ -2,3 +2,6 @@
     display: none;
     color: red;
 }
+textarea {
+    resize: none;
+  }

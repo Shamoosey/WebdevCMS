@@ -37,7 +37,7 @@
         require("actions/connect.php");
         $query = $db -> prepare("SELECT * FROM users");
         $query -> execute();
-        $user = $query -> fetchAll();
+        $user = $query -> fetch();
         
 
         foreach ($user as $user) {
