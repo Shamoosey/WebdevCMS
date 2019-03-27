@@ -1,18 +1,20 @@
 <?php   
     $validUser = false;
+    $queryCount = 0;
     session_start();
     if(isset($_SESSION["USERID"])){
         if($_SESSION["ADMIN"] == 1){
             $validUser = true;
         }
     }
-    if($validUser && ISSET($_GET['userid'])){
+    if($validUser && isset($_GET['userid'])){
 
         $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         require "actions/connect.php";
     
         $query = $db -> prepare("SELECT * FROM users WHERE UserID = '$userID'");
         $query -> execute();
+        $queryCount = $query -> rowCount();
         $user = $query -> fetch();
         $username =ucfirst(strtolower($user["Username"]));
 

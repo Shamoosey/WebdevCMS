@@ -64,16 +64,15 @@
         $put -> bindValue(':email', $userFields[4]);
         $put -> execute();
     
-        $userQuery = $db -> prepare("SELECT UserID, Admin FROM users WHERE UserName = '$userFields[0]'");
+        $userQuery = $db -> prepare("SELECT UserID, Admin FROM users WHERE UserName = '$userFields'");
         $userQuery -> execute();
-        $user = $userQuery -> fetchAll();
-
-        $_SESSION["USERID"] = $user[0]["UserID"];
-        $_SESSION["ADMIN"] = $user[0]["Admin"];
+        $user = $userQuery -> fetch();
 
         if($adminControl){
             header("location: admin.php");
         } else {
+            $_SESSION["USERID"] = $user["UserID"];
+            $_SESSION["ADMIN"] = $user["Admin"];
             header("location: index.php");
         }
     } else {
