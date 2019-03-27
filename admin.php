@@ -62,7 +62,9 @@
                 <button class="uk-button uk-button-primary uk-margin-left" type="submit">Search</button>
             </div>
         </form>
-        <h3 class="uk-text-center uk-margin-bottom"><a href="signup.php?admin=1">Create User</a></h3>
+        <div class="uk-flex uk-flex-center uk-margin-top">
+            <button class="uk-button uk-button-primary uk-margin" type="button" onclick="window.location='signup.php?admin=1';">Create User</button>
+        </div>
         <?php if($error) : ?>
             <div class="uk-text-center uk-text-danger">
                 <span>An error has occurred, please try again</span>
