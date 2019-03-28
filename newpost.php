@@ -75,7 +75,7 @@
             </fieldset>
 
             <div class="uk-flex uk-flex-center uk-margin-top"> 
-                <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Login</button>
+                <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Post</button>
             </div>
         </form>
     <?php else :?>
