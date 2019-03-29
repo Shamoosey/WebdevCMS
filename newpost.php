@@ -26,14 +26,14 @@
                 $errorFlag = true;
             }
         }
-        if(isset($_POST)){
+        if(!$errorFlag){
             if(isset($_POST['imagelink'])){
                 array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             } else {
                 array_push($postFields, null);
             }
 
-        require
+        require "actions/connect.php";
         $insert = "INSERT INTO posts (PostID, UserID, PostTitle, PostContent, PostImage) VALUES 
                                     (NULL, {$postFields[0]}, {$postFields[1]}, {$postFields[2]}, {$postFields[3]})";
 
