@@ -32,14 +32,14 @@
             } else {
                 array_push($postFields, null);
             }
-
+            print_r($postFields);
         require "actions/connect.php";
         $insert = "INSERT INTO posts (PostID, UserID, PostTitle, PostContent, PostImage) VALUES 
-                                    (NULL, {$postFields[0]}, {$postFields[1]}, {$postFields[2]}, {$postFields[3]})";
+                                    (NULL, '$postFields[0]', '$postFields[1]', '$postFields[2]', '$postFields[3]')";
 
         $post = $db -> prepare($insert);
         $post -> execute();
-            header("location: index.php");
+            header("location: allposts.php");
         }
 
     } else {

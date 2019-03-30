@@ -7,8 +7,10 @@
         <div style="opacity: 0.9;" class="uk-width-1-2 uk-align-center uk-card uk-card-body uk-text-center uk-card-default">
             <h1 class="uk-text-center"><span>Explore Manitoba</span></h1>
             <div class="uk-flex uk-flex-center">
-                <input class="uk-input uk-form-width-large" type="text" id="text" placeholder="Search for a keyword"/>
-                <button class="uk-button uk-button-secondary uk-margin-left">Search</button>
+                <form action="allposts.php" method="post">
+                    <input class="uk-input uk-form-width-large" type="text" id="text" name="search" placeholder="Search for a keyword"/>
+                    <button class="uk-button uk-button-secondary uk-margin-left" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </div>
