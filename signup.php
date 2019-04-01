@@ -14,7 +14,8 @@
             $adminControl = true;
         }
     }
-
+    
+    session_abort();
 
     foreach ($fields as $value) {
         //Checking if the post is set
@@ -33,19 +34,17 @@
     }
     
     //checking if the username is taken
-    if(isset($_POST["username"])){
+    if(isset($_POST["username"]) && !$errorFlag){
         require("actions/connect.php");
-        $query = $db -> prepare("SELECT * FROM users");
+        $username = strtoupper($userFields[0]);
+        $query = $db -> prepare("SELECT COUNT(*) FROM users WHERE Username = '$username'");
         $query -> execute();
-        $user = $query -> fetch();
-        
-
-        foreach ($user as $user) {
-            if(strtoupper(trim($_POST["username"])) == $user["Username"]){
-                $errorFlag = true;
-                $usernameTaken = true;
-            }
+        $rows = $query -> fetch();
+        if($rows[0] >= 1){
+            $usernameTaken = true;
+            $errorFlag = true;
         }
+        
     }
 
     if(!$errorFlag){
@@ -64,19 +63,18 @@
         $put -> bindValue(':email', $userFields[4]);
         $put -> execute();
     
-        $userQuery = $db -> prepare("SELECT UserID, Admin FROM users WHERE UserName = '$userFields'");
+        $userQuery = $db -> prepare("SELECT * FROM users WHERE UserName = '$username'");
         $userQuery -> execute();
         $user = $userQuery -> fetch();
 
         if($adminControl){
             header("location: admin.php");
         } else {
+            session_start();
             $_SESSION["USERID"] = $user["UserID"];
             $_SESSION["ADMIN"] = $user["Admin"];
-            header("location: index.php");
+            header("location: allposts.php");
         }
-    } else {
-        session_abort();
     }
 ?>
 <!DOCTYPE html>
@@ -85,9 +83,7 @@
     <body>
         <?php require "header.php" ?>
         <?php if(!isset($_SESSION["USERID"]) || $adminControl): ?>
-
             <script src="assets/js/signupValidate.js"></script>
-            <!--<script src="assets/js/usernameValidation.js"></script>-->
 
             <?php if($adminControl): ?> 
                 <h1 class="uk-text-center">Create User</h1>
