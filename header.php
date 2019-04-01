@@ -5,6 +5,7 @@
             <ul class="uk-navbar-nav">
                 <li><a class="" href="index.php">Home</a></li>
                 <li><a class="" href="allposts.php">Posts</a></li>
+                <li><a href="newpost.php">New Post</a></li>
             </ul>
         </div>
         <div class="uk-navbar-right">
@@ -20,7 +21,6 @@
                                 <?php if($_SESSION["ADMIN"] == 1) : ?>
                                 <li><a href="admin.php">Admin Controls</a></li>
                                 <?php endif ?>
-                                <li><a href="newpost.php">New Post</a></li>
                                 <li><a href="account.php">Account</a></li>
                                 <li><a href="actions/signout.php">Sign out</a></li>
                             </ul>

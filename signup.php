@@ -53,7 +53,7 @@
         $insert = "INSERT INTO users (UserID, Username, FirstName, LastName, Password, Email) VALUES (NULL, :username, :fname, :lname, :password, :email)";
 
         $put = $db -> prepare($insert);
-        $username = strtoupper($userFields[0]);
+        $username = $userFields[0];
         $put -> bindValue(':username', trim($username));
         $put -> bindValue(':fname', $userFields[1]);
         $put -> bindValue(':lname', $userFields[2]);

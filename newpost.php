@@ -23,16 +23,25 @@
                 }
             } else {
                 $noSubmissionError = true;
+            }
+        }
+        if(isset($_POST['title'])){
+            if(strlen($postFields[0]) > 25){
                 $errorFlag = true;
             }
         }
-        if(!$errorFlag){
-            if(isset($_POST['imagelink'])){
-                array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if(isset($_POST['imagelink'])){
+            
+            if(!preg_match("/^.*\.(jpg|jpeg|png|gif)$/i", $_POST['imagelink'])){
+                $errorFlag = true;
             } else {
-                array_push($postFields, null);
+                array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             }
-            print_r($postFields);
+        } else {
+            array_push($postFields, null);
+        }
+
+        if(!$errorFlag && !$noSubmissionError){
         require "actions/connect.php";
         $insert = "INSERT INTO posts (PostID, UserID, PostTitle, PostContent, PostImage) VALUES 
                                     (NULL, '$postFields[0]', '$postFields[1]', '$postFields[2]', '$postFields[3]')";
@@ -73,7 +82,11 @@
                     Upload images <a target="_blank" href="https://imgur.com/upload">here</a>
                 </div>
             </fieldset>
-
+            <?php if($errorFlag) : ?>
+                <div class="uk-text-center uk-text-danger">
+                    An error has occurred, please try again.
+                </div>
+            <?php endif ?>
             <div class="uk-flex uk-flex-center uk-margin-top"> 
                 <button class="uk-button-primary uk-button-small uk-margin-right" type="submit" id="submit">Post</button>
             </div>
