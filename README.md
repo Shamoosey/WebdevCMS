@@ -8,8 +8,8 @@ Users are able to signup, and sign into accounts
 
 TO DO
 * Implement Account page
-* Implement new posts and view posts
+* Implement view posts,edit and delete
 * Validation for new posts (front and back)
-* Implement search engine
 * Add inline & block comments
+* Add Error validation for new post
 * Add AJAX Request for usernames
