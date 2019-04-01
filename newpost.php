@@ -28,17 +28,21 @@
         if(isset($_POST['title'])){
             if(strlen($postFields[0]) > 25){
                 $errorFlag = true;
+                
             }
         }
+
         if(isset($_POST['imagelink'])){
-            
-            if(!preg_match("/^.*\.(jpg|jpeg|png|gif)$/i", $_POST['imagelink'])){
-                $errorFlag = true;
+            if($_POST['imagelink'] != ""){
+                if(!preg_match("/^.*\.(jpg|jpeg|png|gif)$/i", $_POST['imagelink'])){
+                    $errorFlag = true;
+                    echo($errorFlag);
+                } else {
+                    array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                }
             } else {
-                array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                array_push($postFields, null);
             }
-        } else {
-            array_push($postFields, null);
         }
 
         if(!$errorFlag && !$noSubmissionError){
@@ -61,7 +65,7 @@
 <?php require "head.php"?>
 <body>
     <?php require "header.php" ?>
-    <?php if(!$nologin): ?>
+    <?php if(!$nologin): ?>     
         <h1 class="uk-text-center"><span>New Post</span></h1>
         <form action="newpost.php" method="post" class="uk-align-center">
             <div class="uk-flex uk-flex-center">
