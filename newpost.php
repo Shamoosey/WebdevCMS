@@ -62,9 +62,6 @@
 <body>
     <?php require "header.php" ?>
     <?php if(!$nologin): ?>
-        <script>UPLOADCARE_PUBLIC_KEY = "d95019f4da90803c754b";</script>
-        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
-
         <h1 class="uk-text-center"><span>New Post</span></h1>
         <form action="newpost.php" method="post" class="uk-align-center">
             <div class="uk-flex uk-flex-center">

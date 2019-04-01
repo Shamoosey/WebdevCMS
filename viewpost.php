@@ -1,7 +1,7 @@
 <?php 
     $invalidPost = false;
     $userID = 0;
-
+    session_start();
     if(isset($_SESSION["USERID"])){
         $userID = $_SESSION["USERID"];
     }
@@ -23,13 +23,13 @@
         $query -> execute();
         $user = $query -> fetch();  
 
-        if($rows = 0){
+        if($rows == 0){
             $invalidPost = true;
         }
     } else {
         $invalidPost = true;
     }
-
+    session_abort();
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,9 @@
 <body>
     <?php require "header.php" ?>
     <?php if($invalidPost) : ?>
-    
+    <div class="uk-card uk-card-default uk-card-body uk-margin uk-width-1-2 uk-align-center uk-child-width-1-1@m">
+        <p>Sorry, invalid post. Back to <a href="allposts.php">all posts</a>.</p>
+    </div>
 
     <?php else : 
         $postDate = substr($post['PostDate'], 0, 10);
