@@ -14,7 +14,7 @@
             //Checking if the post is set
             if(isset($_POST[$value])){
                 //checking if the post has anything in it
-                if($_POST[$value] != ""){
+                if(trim($_POST[$value]) != ""){
                     //pushing the value to the array
                     array_push($postFields, filter_input(INPUT_POST, $value ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
                 } else {

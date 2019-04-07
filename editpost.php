@@ -35,7 +35,7 @@
     <?php require "header.php" ?> 
         <?php if($admin || $valid || !$errorFlag) : ?>
             <h1 class="uk-text-center"><span>Edit Post</span></h1>
-            <form action="newpost.php" method="post" class="uk-align-center">
+            <form action="actions/editpost.php?postid=<?= $postid?>" method="post" class="uk-align-center">
                 <div class="uk-flex uk-flex-center">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin-small">
