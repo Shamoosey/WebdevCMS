@@ -11,12 +11,12 @@
     $postFields = array();
     session_start();
 
-    require "connect.php";
+    require "actions/connect.php";
     
     if(isset($_GET["postid"])){
         $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_NUMBER_INT);
     } else {
-       // $errorFlag = true;
+        $errorFlag = true;
     }
 
     if(isset($_SESSION["ADMIN"])){
@@ -27,6 +27,7 @@
     if(isset($_SESSION["USERID"])){
         $userID = $_SESSION["USERID"];
     }
+
     
     if(!$errorFlag && !$admin && !$validuser) {
         $query = $db -> prepare("SELECT UserID FROM posts WHERE PostID = '$postid'");
@@ -36,6 +37,24 @@
             $errorFlag = true;
         } else {
             $validuser = true;
+        }
+    }
+
+
+    if(isset($_POST["deleteimage"])){
+        if($_POST["deleteimage"] == "on"){
+            $query = $db -> prepare("SELECT PostImage FROM posts WHERE PostID = '$postid'");
+            $query -> execute();
+            $post = $query -> fetch();
+
+            if($post["PostImage"] != null){
+                if(is_writable("images/".basename($post["PostImage"]))){
+                    unlink("images/".basename($post["PostImage"]));
+
+                    $query = $db -> prepare("UPDATE posts SET PostImage = null WHERE PostID = '$postid'");
+                    $query -> execute();
+                }
+            }
         }
     }
 
@@ -68,10 +87,10 @@
         $query = $db -> prepare("UPDATE posts SET PostTitle = '$postFields[0]', PostContent = '$postFields[1]'
                                  WHERE PostID = '$postid'");
         $query -> execute();
-            header("location: ../allposts.php");
+            header("location: allposts.php");
         }
 
     }
-    header("location: ../allposts.php");
+    header("location: allposts.php");
 
 ?>

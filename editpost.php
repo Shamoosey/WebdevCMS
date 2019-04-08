@@ -35,7 +35,7 @@
     <?php require "header.php" ?> 
         <?php if($admin || $valid || !$errorFlag) : ?>
             <h1 class="uk-text-center"><span>Edit Post</span></h1>
-            <form action="actions/editpost.php?postid=<?= $postid?>" method="post" class="uk-align-center">
+            <form action="edituserpost.php?postid=<?= $postid?>" method="post" class="uk-align-center">
                 <div class="uk-flex uk-flex-center">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin-small">
@@ -45,6 +45,11 @@
                         <div class="uk-margin-small">
                             Text: <textarea class="uk-textarea" rows="5" id="content" name="content" type="textarea" ><?= $post["PostContent"] ?></textarea>
                         </div>
+                        <?php if($post["PostImage"] != null): ?>
+                            <div class="uk-margin-small">
+                                <label><input class="uk-checkbox" type="checkbox" name="deleteimage"> Delete Image</label>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </fieldset>
                 <?php if($errorFlag) : ?>

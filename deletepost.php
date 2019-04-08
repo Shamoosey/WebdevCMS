@@ -18,7 +18,12 @@
     }
 
     if($validUser){
-    
+        if($post["PostImage"] != null){
+            if(is_writable("images/".basename($post["PostImage"]))){
+                unlink("images/".basename($post["PostImage"]));
+            }
+        }
+      
         $query = $db -> prepare("DELETE FROM posts WHERE PostID = '$postid'");
         $query -> execute();
     }

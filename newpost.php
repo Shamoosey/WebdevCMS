@@ -32,25 +32,49 @@
             }
         }
 
-        if(isset($_POST['imagelink'])){
-            if($_POST['imagelink'] != ""){
-                if(!preg_match("/^.*\.(jpg|jpeg|png|gif)$/i", $_POST['imagelink'])){
-                    $errorFlag = true;
-                    echo($errorFlag);
-                } else {
-                    array_push($postFields, filter_input(INPUT_POST, 'imagelink' ,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                }
+        function file_upload_path($original_filename, $upload_subfolder_name = 'images') {
+           $current_folder = dirname(__FILE__);
+           $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+           return join(DIRECTORY_SEPARATOR, $path_segments);
+        }
+
+        function file_is_an_image($temporary_path, $new_path) {
+            $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+            $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+            
+            $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+            $actual_mime_type        = getimagesize($temporary_path)['mime'];
+            
+            $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+            $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+            
+            return $file_extension_is_valid && $mime_type_is_valid;
+        }
+    
+        $image_upload_detected = isset($_FILES['image']) && ($_FILES['image']['error'] === 0);
+        
+        if ($image_upload_detected) {
+            $image_filename       = $_FILES['image']['name'];
+            $temporary_image_path = $_FILES['image']['tmp_name'];
+            $new_image_path       = file_upload_path($image_filename);
+            
+            if (file_is_an_image($temporary_image_path, $new_image_path)) { 
+                $imageName = "images\\" . basename($new_image_path);
+                move_uploaded_file($temporary_image_path, $new_image_path);
             } else {
-                array_push($postFields, null);
+                $imageName = null;
+                $errorFlag = true;
             }
+        } else {
+            $imageName = null;
         }
 
         if(!$errorFlag && !$noSubmissionError){
         require "actions/connect.php";
         $insert = "INSERT INTO posts (PostID, UserID, PostTitle, PostContent, PostImage) VALUES 
-                                    (NULL, '$postFields[0]', '$postFields[1]', '$postFields[2]', '$postFields[3]')";
-
+                                    (NULL, '$postFields[0]', '$postFields[1]', '$postFields[2]', :image)";
         $post = $db -> prepare($insert);
+        $post -> bindvalue(':image', $imageName);
         $post -> execute();
             header("location: allposts.php");
         }
@@ -67,7 +91,7 @@
     <?php require "header.php" ?>
     <?php if(!$nologin): ?>     
         <h1 class="uk-text-center"><span>New Post</span></h1>
-        <form action="newpost.php" method="post" class="uk-align-center">
+        <form action="newpost.php" method="post" enctype="multipart/form-data" class="uk-align-center">
             <div class="uk-flex uk-flex-center">
                 <fieldset class="uk-fieldset">
                     <div class="uk-margin-small">
@@ -77,10 +101,10 @@
                     <div class="uk-margin-small">
                         Text: <textarea class="uk-textarea" rows="5" id="content" name="content" type="textarea" placeholder="Content"></textarea>
                     </div>
-                    <div class="uk-margin-small">
-                        Link to Image: <input class="uk-input" id="imagelink" name="imagelink" type="text" placeholder="Image URL" />
+                    <div uk-form-custom="target: true">
+                        <input type="file" name="image">
+                        Image: <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled>
                     </div>
-                    Upload images <a target="_blank" href="https://imgur.com/upload">here</a>
                 </div>
             </fieldset>
             <?php if($errorFlag) : ?>

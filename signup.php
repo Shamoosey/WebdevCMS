@@ -84,7 +84,7 @@
         <?php require "header.php" ?>
         <?php if(!isset($_SESSION["USERID"]) || $adminControl): ?>
             <script src="assets/js/signupValidate.js"></script>
-
+            <script src="assets/js/usernameValidation.js"></script>
             <?php if($adminControl): ?> 
                 <h1 class="uk-text-center">Create User</h1>
             <?php else : ?>
