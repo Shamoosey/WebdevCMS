@@ -14,7 +14,7 @@
 
         require "actions/connect.php";
         
-        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_NUMBER_INT);
         $query = $db -> prepare("SELECT * FROM users WHERE UserID = '$userID'");
         $query -> execute();
         $user = $query -> fetch();

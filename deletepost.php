@@ -2,7 +2,7 @@
     $validUser = false;
     $admin = false;
     session_start();
-    $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_NUMBER_INT);
     if(isset($_SESSION["ADMIN"])){
         $admin = $_SESSION["ADMIN"] == 1 ? true : false ;
     }

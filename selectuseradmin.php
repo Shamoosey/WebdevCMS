@@ -9,7 +9,7 @@
     }
     if($validUser && isset($_GET['userid'])){
 
-        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_NUMBER_INT);
         require "actions/connect.php";
     
         $query = $db -> prepare("SELECT * FROM users WHERE UserID = '$userID'");

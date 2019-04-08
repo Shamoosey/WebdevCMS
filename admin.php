@@ -15,13 +15,11 @@
     if($validuser){
 
         //for ordering the users
-        $orderby = "Username";
+        $orderby = 'UserID ASC';
         if(isset($_GET['orderby'])){
             if(strtolower($_GET['orderby']) == 'username'){
                 $orderby = "Username ASC";
             } elseif(strtolower($_GET['orderby']) == 'userid') {
-                $orderby = "UserID ASC";
-            } else {
                 $orderby = "UserID ASC";
             }
         }

@@ -6,7 +6,7 @@
     session_start();
 
     if(isset($_GET["postid"])){
-        $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_NUMBER_INT);
     } else {
         $errorFlag = true;
     }

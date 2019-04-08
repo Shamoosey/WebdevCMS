@@ -11,7 +11,7 @@
     }
 
     if(isset($_GET['postid'])){
-        $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $postid = filter_input(INPUT_GET, "postid", FILTER_SANITIZE_NUMBER_INT);
         require "actions/connect.php";
         $query = $db -> prepare("SELECT * FROM posts WHERE PostID = '$postid'");
         $query -> execute();

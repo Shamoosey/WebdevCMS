@@ -9,7 +9,7 @@
 
     if($validUser){
 
-        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $userID = filter_input(INPUT_GET, "userid", FILTER_SANITIZE_NUMBER_INT);
 
         require "actions/connect.php";
     
